@@ -1,0 +1,113 @@
+import { useState } from "react";
+import "./App.css";
+
+const phrases = [
+  "No",
+  "pookie please",
+  "Really sure?",
+  "Don't do this to me",
+  "I'm gonna cry...",
+  "You're breaking my heart",
+];
+
+function App() {
+  const [nocount, setnoCount] = useState(0);
+  const [yesPressed, setyesPressed] = useState(false);
+  const [buttonSizes, setButtonSizes] = useState({
+    yesButtonSize: 16,
+    noButtonSize: 16,
+  });
+
+  function handleNoClick() {
+    setnoCount(nocount + 1);
+    setButtonSizes({
+      ...buttonSizes,
+      yesButtonSize: buttonSizes.yesButtonSize + 20,
+    });
+  }
+
+  function handleYesClick() {
+    setyesPressed(true);
+  }
+
+  function getNoButtonText() {
+    return phrases[Math.min(nocount, phrases.length - 1)];
+  }
+
+  const buttonStyle = {
+    fontFamily: "Impact, Charcoal, sans-serif",
+    backgroundColor: "#4CAF50",
+    color: "white",
+    padding: "10px 20px",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+    margin: "5px",
+    fontSize: buttonSizes.yesButtonSize,
+    transition: "font-size 0.5s",
+  };
+
+  const noButtonStyle = {
+    ...buttonStyle,
+    backgroundColor: "#FF5733",
+    fontSize: buttonSizes.noButtonSize,
+  };
+
+  const valentineSentenceStyle = {
+    fontFamily: "MV Boli, sans-serif",
+    fontWeight: "bold",
+  };
+
+  const yayTextStyle = {
+    fontFamily: "MV Boli, sans-serif",
+    fontWeight: "bold",
+  };
+
+  const containerStyle = {
+    backgroundColor: "#FFD9EB", // Light pink background color
+  };
+
+  return (
+    <div className="Vithunzz-container" style={containerStyle}>
+      {yesPressed ? (
+        <>
+          <img
+            alt="beard kissing"
+            src="https://www.cutecatgifs.com/wp-content/uploads/2021/02/wow.gif"
+          />
+          <div style={yayTextStyle} className="Text">
+            Yay!!!!
+          </div>
+        </>
+      ) : (
+        <>
+          <img
+            alt="bear with hearts"
+            src="https://media.tenor.com/-DY1sCSEXqUAAAAM/sad-cat.gif"
+          />
+          <div style={valentineSentenceStyle}>Will you be my valentine?</div>
+          <div>
+            <button
+              className="YesButton"
+              style={buttonStyle}
+              onClick={handleYesClick}
+            >
+              Yes
+            </button>
+          </div>
+          <div>
+            <button
+              onClick={handleNoClick}
+              className="NoButton"
+              style={noButtonStyle}
+            >
+              {getNoButtonText()}
+            </button>
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
+export default App;
